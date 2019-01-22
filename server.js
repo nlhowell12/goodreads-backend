@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 const Book = require("./models/book.model")
+const User  = require('./models/user.model')
 
 app.get("/", (req, res) => {
   let books = [];
@@ -40,6 +41,23 @@ app.get("/id", (req, res) => {
     if (err) return handleError(err);
     res.send(book);
   });
+});
+
+app.post('/users/create', (req, res) => {
+  const data = req.body;
+  console.log(data)
+  let newUser = new User({
+    username: data.username,
+    favorites: [],
+    isAdmin: false
+  });
+  newUser.save((err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send('User created sucessfully!');
+    }
+  })
 });
 
 const port = 3000;
