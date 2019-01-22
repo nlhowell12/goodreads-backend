@@ -46,17 +46,24 @@ app.get("/id", (req, res) => {
 
 app.post('/users/create', (req, res) => {
   const data = req.body;
-  console.log(data)
   let newUser = new User({
     username: data.username,
     favorites: [],
-    isAdmin: false
+    isAdmin: false,
+    password: data.password
   });
-  newUser.save((err) => {
-    if (err) {
-      console.log(err);
+
+  User.find({username: data.username}, (err, user) => {
+    if (user.length > 0) {
+      res.send("User already exists!")
     } else {
-      res.send('User created sucessfully!');
+      newUser.save((err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send('User created sucessfully!');
+        }
+      })
     }
   })
 });
