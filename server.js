@@ -68,6 +68,18 @@ app.post('/users/create', (req, res) => {
   })
 });
 
+app.post('/login', (req, res) => {
+  const data = req.body;
+  User.find({username: data.username, password: data.password }, (err, user) => {
+    if (user.length > 0) {
+      res.send("Success")
+    } else {
+      console.error(err)
+      res.send("Something went wrong")
+    }
+  })
+});
+
 const port = 3000;
 
 app.listen(process.env.PORT || port, () => {
