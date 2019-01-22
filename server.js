@@ -46,7 +46,7 @@ const port = 3000;
 
 app.listen(process.env.PORT || port, () => {
   console.log("App is running at port: ", port);
-  mongoose.connect("mongodb://localhost:27017/goodreads");
+  mongoose.connect(`mongodb://${process.env.dbuser}:${process.env.dbpassword}@ds163764.mlab.com:63764/goodreads-backend`);
   const db = mongoose.connection;
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", function callback() {});
