@@ -55,13 +55,13 @@ app.post('/users/create', (req, res) => {
 
   User.find({username: data.username}, (err, user) => {
     if (user.length > 0) {
-      res.send("User already exists!")
+      res.send(false)
     } else {
       newUser.save((err) => {
         if (err) {
           console.log(err);
         } else {
-          res.send('User created sucessfully!');
+          res.send(true);
         }
       })
     }
@@ -72,10 +72,10 @@ app.post('/login', (req, res) => {
   const data = req.body;
   User.find({username: data.username, password: data.password }, (err, user) => {
     if (user.length > 0) {
-      res.send("Success")
+      res.send(JSON.stringify("Success"))
     } else {
       console.error(err)
-      res.send("Something went wrong")
+      res.send(JSON.stringify("Something went wrong"))
     }
   })
 });
