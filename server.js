@@ -71,11 +71,13 @@ app.post('/users/create', (req, res) => {
 app.post('/login', (req, res) => {
   const data = req.body;
   User.find({username: data.username, password: data.password }, (err, user) => {
+    if(err) {
+      console.error(err);
+    }
     if (user.length > 0) {
       res.send(JSON.stringify("Success"))
     } else {
-      console.error(err)
-      res.send(JSON.stringify("Something went wrong"))
+      res.send(JSON.stringify("User does not exist or password is incorrect"))
     }
   })
 });
