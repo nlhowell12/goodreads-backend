@@ -19,7 +19,7 @@ exports.add_book = function (req, res) {
     if (err) {
       return console.error(err);
     } else {
-      res.send("book added");
+      res.send(newBook);
     }
   });
 
