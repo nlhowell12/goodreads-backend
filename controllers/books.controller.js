@@ -2,14 +2,9 @@ const Book = require('../models/book.model');
 
 exports.all_books = function (req, res) {
 
-  let books = [];
   Book.find({}, function (err, bookList) {
     if (err) return handleError(err);
-
-    for (let i in bookList) {
-      books.push(bookList[i]);
-    }
-    res.send(books);
+    res.send(bookList);
   });
 
 };

@@ -13,13 +13,13 @@ exports.signup = function (req, res) {
   
     User.find({username: data.username}, (err, user) => {
       if (user.length > 0) {
-        res.send("User already exists!")
+        res.send(false)
       } else {
         newUser.save((err) => {
           if (err) {
             console.log(err);
           } else {
-            res.send('User created sucessfully!');
+            res.send(true);
           }
         })
       }
