@@ -75,6 +75,7 @@ app.post('/login', (req, res) => {
       res.send(JSON.stringify("User does not exist or password is incorrect"))
     }
   })
+});
 
 app.get("/", (req, res) => {
   res.send(`
