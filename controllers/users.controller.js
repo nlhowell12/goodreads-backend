@@ -14,12 +14,14 @@ exports.signup = function (req, res) {
     User.find({username: data.username}, (err, user) => {
       if (user.length > 0) {
         res.send(false)
+        res.status(401);
       } else {
         newUser.save((err) => {
           if (err) {
             console.log(err);
           } else {
             res.send(true);
+            res.status(201);
           }
         })
       }
