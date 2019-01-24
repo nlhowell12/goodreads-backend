@@ -2,25 +2,20 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 require('dotenv').config()
 
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
-const Book = require("./models/book.model")
-const User  = require('./models/user.model')
+const books = require('./routes/books.route');
+const users = require('./routes/users.route');
 
-app.get("/", (req, res) => {
-  let books = [];
-  Book.find({}, function(err, bookList) {
-    if (err) return handleError(err);
+app.use('/books', books);
+app.use('/users', users);
 
-    for (let i in bookList) {
-      books.push(bookList[i]);
-    }
-    res.send(books);
-  });
-});
 
 app.post("/add", (req, res) => {
   let title = req.body.title
@@ -80,6 +75,13 @@ app.post('/login', (req, res) => {
       res.send(JSON.stringify("User does not exist or password is incorrect"))
     }
   })
+
+app.get("/", (req, res) => {
+  res.send(`
+  Welcome to Goodreads
+  <a href="books/all_books">all books</a>
+  `)
+
 });
 
 const port = 3000;
