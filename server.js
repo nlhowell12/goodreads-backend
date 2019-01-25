@@ -1,3 +1,5 @@
+process.env.NODE_PATH = __dirname;
+require('module').Module._initPaths();
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -10,8 +12,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-const books = require('./routes/books.route');
-const users = require('./routes/users.route');
+const books = require('routes/books.route');
+const users = require('routes/users.route');
 
 app.use('/books', books);
 app.use('/users', users);
